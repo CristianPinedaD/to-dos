@@ -1,5 +1,6 @@
 #include "todo.h"
 #include <vector>
+#include <cstdlib>
 
 using namespace std;
 
@@ -7,6 +8,7 @@ using namespace std;
 void addToDo();
 void popToDo();
 void displayList();
+void clearScreen(); 
 
 vector<todo> toDoList; /* FIFO queue of TODOs */
 
@@ -15,13 +17,10 @@ int main(void) {
 
     int keepgoing = 1;
 
-
-
-
-
     while (keepgoing) {
         int option;
 
+        clearScreen(); 
         displayList();
         cout << "What would you like to do?" << endl;
         cout << "(1) Add a to-do to the list" << endl;
@@ -71,7 +70,19 @@ void addToDo() {
 
 void popToDo() {
     cout << "Removing earliest to-do from the list..." << endl;
-    toDoList.pop_back();
+    if (toDoList.size() > 0) {
+        toDoList.pop_back();
+        cout << "Earliest to-do removed!" << endl;
+    }
+    else {
+        cout << "Error: cannot remove from empty list" << endl; 
+    }
+}
 
-    cout << "Earliest to-do removed!" << endl;
+void clearScreen() {
+    #ifdef _WIN32
+        system("cls"); // for windows
+    #else
+        system("clear"); // for normal people
+    #endif
 }

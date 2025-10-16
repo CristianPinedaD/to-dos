@@ -12,7 +12,7 @@ void displayList();
 void clearScreen();
 void pressAnyKey();
 
-vector<todo> toDoList; /* FIFO queue of TODOs */
+vector<todo> toDoList; /* LIFO queue of TODOs */
 
 /* End goal: to-do lists are saved and persistent through states of the program.  */
 int main(void) {

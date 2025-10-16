@@ -49,7 +49,7 @@ int main(void) {
 
 void displayList() {
     cout << "****** TO-DO LIST ******" << endl;
-    for (int i = 0; i < toDoList.size(); i++) {
+    for (int i = 0; i < (int)toDoList.size(); i++) {
         cout << "* (" << i << ")" << toDoList[i].getContent() << endl;
     }
     cout << "****** END LIST ********" << endl;

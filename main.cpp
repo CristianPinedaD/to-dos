@@ -1,5 +1,6 @@
 #include "todo.h"
 #include <vector>
+#include <limits>
 #include <cstdlib>
 
 using namespace std;
@@ -29,7 +30,13 @@ int main(void) {
         cout << "(3) Exit " << endl;
 
         cout << "Choice: ";
-        cin >> option;
+        if (!(cin >> option)) {
+               cin.clear();
+               cin.ignore(numeric_limits<streamsize>::max(), '\n');
+               cout << "Invalid input! Please enter a number.\n";
+               pressAnyKey();
+               continue;
+        }
 
         switch(option) {
             case 1:
@@ -93,5 +100,6 @@ void clearScreen() {
 
 void pressAnyKey() {
     cout << "\nPress any key to continue...";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // flush leftover input
     cin.get(); // wait for Enter
 }

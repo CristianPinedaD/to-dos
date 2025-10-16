@@ -3,10 +3,10 @@
 #include <limits>
 #include <cstdlib>
 #include <fstream>
-#include <filesystem> 
+#include <filesystem>
 
 using namespace std;
-namespace fs = filesystem; 
+namespace fs = filesystem;
 
 
 void addToDo();
@@ -14,9 +14,10 @@ void popToDo();
 void displayList();
 void clearScreen();
 void pressAnyKey();
-bool fileExists(const string& filename); 
-void loadList(); 
-void saveList(); 
+bool fileExists(const string& filename);
+void loadList();
+void saveList();
+void popById();
 
 vector<todo> toDoList; /* LIFO queue of TODOs */
 
@@ -24,9 +25,9 @@ vector<todo> toDoList; /* LIFO queue of TODOs */
 int main(void) {
 
     int keepgoing = 1;
-    
+
     if (fileExists("todo.txt")) {
-        loadList(); 
+        loadList();
     }
 
     while (keepgoing) {
@@ -53,7 +54,17 @@ int main(void) {
                 addToDo();
             break;
             case 2:
-                popToDo();
+                cout << "Remove... " << endl;
+                cout << "(1) Last item\n(2) By ID" << endl;
+                cout << "Choice? "; 
+                int choice; 
+                cin >> choice; 
+                if (choice == 1) {
+                    popToDo();
+                }
+                else if (choice == 2) {
+                    popById(); 
+                }
             break;
             case 3:
                 cout << "See you later!" << endl;
@@ -63,7 +74,7 @@ int main(void) {
                 cout << "This choice does not exist yet" << endl;
         }
     }
-    saveList(); 
+    saveList();
 }
 
 
@@ -117,7 +128,7 @@ void pressAnyKey() {
 
 bool fileExists(const string& filename) {
     /* True if exists, false otherwise */
-    return fs::exists(filename); 
+    return fs::exists(filename);
 }
 
 void loadList() {
@@ -125,13 +136,52 @@ void loadList() {
     string line;
     while (getline(inFile, line)) {
         todo newToDo = {static_cast<int>(toDoList.size()), line};
-        toDoList.push_back(newToDo); 
+        toDoList.push_back(newToDo);
     }
 }
 
 void saveList() {
     ofstream outFile("todo.txt");
     for (auto& item : toDoList) {
-        outFile << item.getContent() << endl; 
+        outFile << item.getContent() << endl;
     }
+}
+
+void popById() {
+    if (toDoList.empty()) {
+        cout << "The list is empty!" << endl;
+        pressAnyKey();
+        return;
+    }
+
+    int id;
+    cout << "Enter the ID of the to-do you want to remove: ";
+    if (!(cin >> id)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input!" << endl;
+        pressAnyKey();
+        return;
+    }
+
+    bool found = false;
+    for (auto it = toDoList.begin(); it != toDoList.end(); it++) {
+        if (it->getID() == id) {
+            toDoList.erase(it);
+            found = true;
+        }
+    }
+
+    /* Reassign IDs so they match their indices */
+    if (found) {
+        for (int i = 0; i < (int)toDoList.size(); i++) {
+            toDoList[i].setID(i);
+        }
+        cout << "To-do removed successfully!" << endl;
+    }
+    else {
+        cout << "No to-do found with ID " << id << endl;
+    }
+
+    pressAnyKey();
 }

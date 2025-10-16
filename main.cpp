@@ -8,7 +8,7 @@ using namespace std;
 void addToDo();
 void popToDo();
 void displayList();
-void clearScreen(); 
+void clearScreen();
 void pressAnyKey();
 
 vector<todo> toDoList; /* FIFO queue of TODOs */
@@ -21,7 +21,7 @@ int main(void) {
     while (keepgoing) {
         int option;
 
-        clearScreen(); 
+        clearScreen();
         displayList();
         cout << "What would you like to do?" << endl;
         cout << "(1) Add a to-do to the list" << endl;
@@ -48,6 +48,7 @@ int main(void) {
     }
 }
 
+
 void displayList() {
     cout << "****** TO-DO LIST ******" << endl;
     for (int i = 0; i < (int)toDoList.size(); i++) {
@@ -67,7 +68,7 @@ void addToDo() {
     toDoList.push_back(newToDo);
 
     cout << "New reminder added to the list!" << endl;
-    pressAnyKey(); 
+    pressAnyKey();
 }
 
 void popToDo() {
@@ -77,7 +78,7 @@ void popToDo() {
         cout << "Earliest to-do removed!" << endl;
     }
     else {
-        cout << "Error: cannot remove from empty list" << endl; 
+        cout << "Error: cannot remove from empty list" << endl;
     }
     pressAnyKey();
 }

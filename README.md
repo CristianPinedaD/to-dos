@@ -23,7 +23,7 @@ a little program that helps me record to-do's
   
 ## Features
 
-  ## Persistence
+  Persistence
   
   This to-do app saves your list on a file named to-dos.txt and keeps persistence between runs. 
     

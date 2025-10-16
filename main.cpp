@@ -9,6 +9,7 @@ void addToDo();
 void popToDo();
 void displayList();
 void clearScreen(); 
+void pressAnyKey();
 
 vector<todo> toDoList; /* FIFO queue of TODOs */
 
@@ -66,6 +67,7 @@ void addToDo() {
     toDoList.push_back(newToDo);
 
     cout << "New reminder added to the list!" << endl;
+    pressAnyKey(); 
 }
 
 void popToDo() {
@@ -77,6 +79,7 @@ void popToDo() {
     else {
         cout << "Error: cannot remove from empty list" << endl; 
     }
+    pressAnyKey();
 }
 
 void clearScreen() {
@@ -85,4 +88,9 @@ void clearScreen() {
     #else
         system("clear"); // for normal people
     #endif
+}
+
+void pressAnyKey() {
+    cout << "\nPress any key to continue...";
+    cin.get(); // wait for Enter
 }

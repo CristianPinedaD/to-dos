@@ -51,7 +51,7 @@ int main(void) {
 void displayList() {
     cout << "****** TO-DO LIST ******" << endl;
     for (int i = 0; i < toDoList.size(); i++) {
-        cout << "* (" << i << ")" << toDoList.at(i) << endl;
+        cout << "* (" << i << ")" << toDoList[i].getContent() << endl;
     }
     cout << "****** END LIST ********" << endl;
 }
@@ -60,10 +60,10 @@ void addToDo() {
     string content;
 
     cout << "What would you like to put on the list?" << endl;
-    cin >> content;
+    cin.ignore();
+    getline(cin, content);
 
-    todo newToDo = {toDoList.size(), content};
-
+    todo newToDo = {static_cast<int>(toDoList.size()), content};
     toDoList.push_back(newToDo);
 
     cout << "New reminder added to the list!" << endl;

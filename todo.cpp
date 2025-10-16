@@ -30,12 +30,4 @@ void todo::setID(int id) {
     this->id = id; 
 }
 
-// prints the todo member variables to the ostream parameter
-ostream &operator<<(ostream &os, const todo todo) {
-    
-    os << setw(8) << todo.id << setw(8)<< todo.content << endl; 
-    
-    return os; 
-}
-
 

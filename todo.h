@@ -12,9 +12,6 @@ class todo {
         todo();
         todo(int, string); 
         
-        /* Prints the To-Do to the ostream */
-        friend ostream& operator<<(ostream&, todo); 
-        
         
         
     private:

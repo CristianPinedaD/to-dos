@@ -2,8 +2,11 @@
 #include <vector>
 #include <limits>
 #include <cstdlib>
+#include <fstream>
+#include <filesystem> 
 
 using namespace std;
+namespace fs = filesystem; 
 
 
 void addToDo();
@@ -11,6 +14,9 @@ void popToDo();
 void displayList();
 void clearScreen();
 void pressAnyKey();
+bool fileExists(const string& filename); 
+void loadList(); 
+void saveList(); 
 
 vector<todo> toDoList; /* LIFO queue of TODOs */
 
@@ -18,6 +24,10 @@ vector<todo> toDoList; /* LIFO queue of TODOs */
 int main(void) {
 
     int keepgoing = 1;
+    
+    if (fileExists("todo.txt")) {
+        loadList(); 
+    }
 
     while (keepgoing) {
         int option;
@@ -53,6 +63,7 @@ int main(void) {
                 cout << "This choice does not exist yet" << endl;
         }
     }
+    saveList(); 
 }
 
 
@@ -102,4 +113,25 @@ void pressAnyKey() {
     cout << "\nPress any key to continue...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // flush leftover input
     cin.get(); // wait for Enter
+}
+
+bool fileExists(const string& filename) {
+    /* True if exists, false otherwise */
+    return fs::exists(filename); 
+}
+
+void loadList() {
+    ifstream inFile("todo.txt");
+    string line;
+    while (getline(inFile, line)) {
+        todo newToDo = {static_cast<int>(toDoList.size()), line};
+        toDoList.push_back(newToDo); 
+    }
+}
+
+void saveList() {
+    ofstream outFile("todo.txt");
+    for (auto& item : toDoList) {
+        outFile << item.getContent() << endl; 
+    }
 }

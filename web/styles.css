@@ -1,0 +1,15 @@
+* {
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+header {
+    display: flex; 
+    justify-content: center;
+    border: solid 2px red; 
+    margin: 0 30vh;
+    border-radius: 30px;  
+}
+
+body {
+    background-image: linear-gradient(to bottom, #224870, #2A4494)
+}

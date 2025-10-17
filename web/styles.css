@@ -11,5 +11,31 @@ header {
 }
 
 body {
-    background-image: linear-gradient(to bottom, #224870, #2A4494)
+    background-image: linear-gradient(180deg, #224870, #2A4494)
+}
+
+.list-container {
+    display: flex; 
+    justify-content: center;
+    border: solid 2px red;  
+}
+
+.list {
+    display: flex; 
+}
+
+.left-panel {
+}
+
+.todo-wrapper {
+    display: flex; 
+    flex-direction: row; 
+}
+
+.todo-wrapper li{
+    list-style-type: none;
+}
+
+.right-panel {
+
 }
